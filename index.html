@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Design Your own Hogwarts!</title>
+
+    <script src="../p5/p5.min.js" type="text/javascript"></script>
+    <script src="../p5/addons/p5.dom.min.js" type="text/javascript"></script>
+		<script src="sketch.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+
+  <body>
+    <h1>Design Your Own Hogwarts!</h1>
+
+    <div id="column1">
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+      <div class="tile"></div><div class="tile"></div><div class="tile"></div><div class="tile"></div>
+    </div>
+
+    <div id="column2">
+      <p>Click on a tile here to select it. Then click on the map to the left to palce the tile.</p>
+      <div id="container"> </div>
+    </div>
+
+    <!-- load in the image array file - this makes available a new array of all image filenames that you can use for this project -->
+    <!-- Assets courtesy of Crawl Stone Soup: https://github.com/crawl/tiles -->
+    <script src="image_array.js"></script>
+    <script>
+      for (var i = 0; i < array_library.length; i++) {
+        array_library[i]
+        let newDiv = document.createElement('div');
+        let newTile = document.createElement('img');
+        newTile.src = array_library[i];
+        newTile.width = 32;
+        newTile.height = 32;
+        newTile.classList.add('choice');
+        newDiv.appendChild(newTile);
+        document.getElementById('container').appendChild(newTile);
+      }
+    </script>
+
+    <script>
+      let allTileChoices = document.querySelectorAll('.choice');
+      var imgSrc;
+      for (let i = 0; i < allTileChoices.length; i++) {
+        allTileChoices[i].onclick = function(e) {
+          let current = document.querySelector('.chosen1');
+          if (current) {
+            current.classList.remove('chosen1');
+          }
+          e.currentTarget.classList.add('chosen1');
+          imgSrc = e.currentTarget.src;
+        }
+      }
+
+      // tile chosen, now click where to place
+      let allSpaces = document.querySelectorAll('.tile')
+      for (i = 0; i < allSpaces.length; i++) {
+        allSpaces[i].onclick = function(e) {
+          if (e.currentTarget.childNodes.length != 0) {
+            e.currentTarget.childNodes[0].src = imgSrc;
+          } else {
+            var tileToPlace = document.createElement('img');
+            tileToPlace.src = imgSrc;
+            // tileToPlace.style.backgroundImage = `url(${imgSrc})`;
+            console.log(e.currentTarget);
+            e.currentTarget.appendChild(tileToPlace);
+          }
+        }
+      }
+    </script>
+
+  </body>
+</html>
